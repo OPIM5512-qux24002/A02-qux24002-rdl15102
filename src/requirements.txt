@@ -1,0 +1,14 @@
+# Python dependencies for the California Housing MLPRegressor project
+# Install with:  pip install -r requirements.txt
+#
+# Version floors (>=) rather than exact pins so the file installs cleanly
+# on any recent Python version. 
+
+# scikit-learn: this tool fetches the dataset and contains the train_test_split and MLPRegressor functions  
+scikit-learn>=1.3
+
+# matplotlib: this builds and saves the actual-vs-predicted plots to figures  
+matplotlib>=3.7
+
+# numpy: array handling for features, targets, and predictions  
+numpy>=1.24
