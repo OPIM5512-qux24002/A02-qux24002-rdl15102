@@ -12,3 +12,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 print(X_train.shape)
 print(X_test.shape)
+
+from sklearn.neural_network import MLPRegressor
+
+model = MLPRegressor(
+    hidden_layer_sizes=(77,),
+    early_stopping=True
+)
+
+model.fit(X_train, y_train)
