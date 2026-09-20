@@ -35,3 +35,12 @@ plt.xlabel("actual price ($100k)")
 plt.ylabel("predicted price ($100k)")
 plt.title("Model captures the trend but predictions are imprecise")
 plt.savefig("figures/train_actual_vs_pred.png")
+
+y_test_pred = model.predict(X_test)
+
+plt.figure()
+plt.scatter(y_test, y_test_pred)
+plt.xlabel("actual price ($100k)")
+plt.ylabel("predicted price ($100k)")
+plt.title("Test predictions follow the trend with wide spread")
+plt.savefig("figures/test_actual_vs_pred.png")
