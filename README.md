@@ -11,7 +11,7 @@ network.
 ## How to run
 
 ```bash
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 python src/model.py
 ```
 
@@ -30,4 +30,4 @@ python src/model.py
 
 ## Results
 
-Test R2 is about .78 so there is room for improvement with this model. 
+Test R2 is about 0.76 so there is room for improvement with this model. 
