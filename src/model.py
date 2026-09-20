@@ -30,11 +30,6 @@ model = make_pipeline(
 
 model.fit(X_train, y_train)
 
-import os
-import matplotlib.pyplot as plt
-
-os.makedirs("figures", exist_ok=True)
-
 y_train_pred = model.predict(X_train)
 y_test_pred = model.predict(X_test)
 
@@ -43,21 +38,29 @@ test_r2 = r2_score(y_test, y_test_pred)
 train_rmse = mean_squared_error(y_train, y_train_pred) ** 0.5
 test_rmse = mean_squared_error(y_test, y_test_pred) ** 0.5
 
-print(f"Train R2: {train_r2:.3f}  RMSE: {train_rmse:.3f}")
-print(f"Test  R2: {test_r2:.3f}  RMSE: {test_rmse:.3f}")
 
-plt.figure()
-plt.scatter(y_train, y_train_pred)
-plt.xlabel("actual price ($100k)")
-plt.ylabel("predicted price ($100k)")
-plt.title("Model captures the trend but predictions are imprecise")
-plt.savefig("figures/train_actual_vs_pred.png")
+#Code for plotting
+import os
+import matplotlib.pyplot as plt
+
+os.makedirs("figures", exist_ok=True)
 
 
+def plot_actual_vs_pred(actual, predicted, split_name, r2, rmse, path):
+    plt.figure(figsize=(6, 6))
+    plt.scatter(actual, predicted, alpha=0.2, s=10)
+    lo, hi = actual.min(), actual.max()
+    plt.plot([lo, hi], [lo, hi], color="red", linestyle="--", label="perfect prediction")
+    plt.xlabel("actual price ($100k)")
+    plt.ylabel("predicted price ($100k)")
+    plt.title(f"{split_name}: actual vs predicted (R2 = {r2:.3f}, RMSE = {rmse:.3f})")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(path)
+    plt.close()
 
-plt.figure()
-plt.scatter(y_test, y_test_pred)
-plt.xlabel("actual price ($100k)")
-plt.ylabel("predicted price ($100k)")
-plt.title("Test predictions follow the trend with wide spread")
-plt.savefig("figures/test_actual_vs_pred.png")
+
+plot_actual_vs_pred(y_train, y_train_pred, "Train", train_r2, train_rmse,
+                    "figures/train_actual_vs_pred.png")
+plot_actual_vs_pred(y_test, y_test_pred, "Test", test_r2, test_rmse,
+                    "figures/test_actual_vs_pred.png")
